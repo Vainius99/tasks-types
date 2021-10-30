@@ -39,6 +39,12 @@ class TypeController extends Controller
     {
         $type = new Type;
 
+        $validateVar = $request->validate([
+            'type_title' => 'required|min:6|max:255|alpha',
+            'type_description' => 'required|min:6|max:1500|',
+
+        ]);
+
         $type ->title = $request->type_title;
         $type ->description = $request->type_description;
 

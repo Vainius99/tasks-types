@@ -28,6 +28,12 @@
                     <option value="title">Title</option>
                 @endif
 
+                @if ($collumName == 'owner_id')
+                    <option value="owner_id" selected>Owner Name</option>
+                @else
+                    <option value="owner_id">Owner Name</option>
+                @endif
+
                 @if ($collumName == 'description')
                     <option value="description" selected>Description</option>
                 @else
