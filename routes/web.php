@@ -28,6 +28,7 @@ Route::prefix('tasks')->group(function () {
     Route::post('update/{task}', 'App\Http\Controllers\TaskController@update')->name('task.update')->middleware("auth");
     Route::post('delete/{task}', 'App\Http\Controllers\TaskController@destroy')->name('task.destroy')->middleware("auth");
     Route::get('show/{task}', 'App\Http\Controllers\TaskController@show')->name('task.show')->middleware("auth");
+    Route::get('filter','App\Http\Controllers\TaskController@filter')->name('task.filter')->middleware('auth');
 });
 
 Route::prefix('types')->group(function () {
@@ -39,6 +40,17 @@ Route::prefix('types')->group(function () {
     Route::post('update/{type}', 'App\Http\Controllers\TypeController@update')->name('type.update')->middleware("auth");
     Route::post('delete/{type}', 'App\Http\Controllers\TypeController@destroy')->name('type.destroy')->middleware("auth");
     Route::get('show/{type}', 'App\Http\Controllers\TypeController@show')->name('type.show')->middleware("auth");
+});
+
+Route::prefix('owners')->group(function () {
+
+    Route::get('','App\Http\Controllers\OwnerController@index')->name('owner.index')->middleware("auth");
+    Route::get('create', 'App\Http\Controllers\OwnerController@create')->name('owner.create')->middleware("auth");
+    Route::post('store', 'App\Http\Controllers\OwnerController@store')->name('owner.store')->middleware("auth");
+    Route::get('edit/{owner}', 'App\Http\Controllers\OwnerController@edit')->name('owner.edit')->middleware("auth");
+    Route::post('update/{owner}', 'App\Http\Controllers\OwnerController@update')->name('owner.update')->middleware("auth");
+    Route::post('delete/{owner}', 'App\Http\Controllers\OwnerController@destroy')->name('owner.destroy')->middleware("auth");
+    Route::get('show/{owner}', 'App\Http\Controllers\OwnerController@show')->name('owner.show')->middleware("auth");
 });
 
 Auth::routes();

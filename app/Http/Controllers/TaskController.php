@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use App\Models\PaginatonSetting;
 use App\Models\Type;
+use App\Models\Owner;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -15,17 +17,21 @@ class TaskController extends Controller
      */
     public function index(Request $request)
     {
+        $types=Type::all();
         $collumName = $request->collumname;
         $sortby = $request->sortby;
+
+
+
         if(!$collumName && !$sortby) {
             $collumName = 'id';
             $sortby = 'asc';
         }
 
 
-        $tasks= Task::orderBy( $collumName, $sortby)->paginate(5);
+        $tasks = Task::orderBy( $collumName, $sortby)->paginate(10);
         // $tasks= Task::orderBy( $collumName, $sortby)->get();
-        return view("task.index", ["tasks" =>$tasks, 'collumName'=> $collumName, 'sortby' => $sortby]);
+        return view("task.index", ["tasks" =>$tasks, 'types'=>$types, 'collumName'=> $collumName, 'sortby' => $sortby]);
     }
 
     /**
@@ -36,7 +42,8 @@ class TaskController extends Controller
     public function create()
     {
         $types= Type::all();
-        return view("task.create", ["types" =>$types]);
+        $owners=Owner::all();
+        return view("task.create", ["types" =>$types, "owners"=>$owners]);
     }
 
     /**
@@ -48,12 +55,35 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         $task = new Task;
+
+        $validateVar = $request->validate([
+            'task_title' => 'required|min:6|max:255|alpha',
+            'task_description' => 'required|min:6|max:1500|',
+            'task_start_date' => 'required|date',
+            'task_end_date' => 'required|date|after:start_date',
+            'task_logo' => 'image',
+            'task_type_id' => 'numeric|integer',
+            'task_owner_id' => 'numeric|integer',
+
+        ]);
+
         $task ->title = $request->task_title;
+        $task ->owner_id = $request->task_owner_id;
         $task ->description = $request->task_description;
         $task ->type_id = $request->task_type_id;
         $task ->start_date = $request->task_start_date;
         $task ->end_date = $request->task_end_date;
         $task ->logo = $request->task_logo;
+
+        if($request->has('task_logo'))
+        {
+            $imageName = time().'.'.$request->task_logo->extension();
+            $task->logo = '/images/'.$imageName;
+            $request->task_logo->move(public_path('images'), $imageName);
+        } else {
+            $task->image_url = '/images/placeholder.png';
+        }
+
 
         $task->save();
         return redirect()->route("task.index");
@@ -79,7 +109,8 @@ class TaskController extends Controller
     public function edit(Task $task)
     {
         $types = Type::all();
-        return view("task.edit",["task"=>$task, "types"=>$types]);
+        $owners=Owner::all();
+        return view("task.edit",["task"=>$task, "types"=>$types, "owners"=>$owners]);
     }
 
     /**
@@ -93,11 +124,19 @@ class TaskController extends Controller
     {
 
         $task ->title = $request->task_title;
+        $task ->owner_id = $request->task_owner_id;
         $task ->description = $request->task_description;
         $task ->type_id = $request->task_type_id;
         $task ->start_date = $request->task_start_date;
         $task ->end_date = $request->task_end_date;
         $task ->logo = $request->task_logo;
+
+        if($request->has('task_logo'))
+        {
+            $imageName = time().'.'.$request->task_logo->extension();
+            $task->logo = '/images/'.$imageName;
+            $request->task_logo->move(public_path('images'), $imageName);
+        }
 
         $task->save();
         return redirect()->route("task.index");
@@ -118,6 +157,14 @@ class TaskController extends Controller
         }
         $task->delete();
         return redirect()->route("task.index")->with('success_message','Task sekmingai istrintas, Valio!!!');
+
+        $owners_count = $task->taskOwners->count();
+
+        if($owners_count!=0) {
+            return redirect()->route("task.index")->with('error_message','Istrinti negalima Task Owner egzistuoja');
+        }
+        $task->delete();
+        return redirect()->route("task.index")->with('success_message','Task sekmingai istrintas, Valio!!!');
     }
 
     public function search(Request $request) {
@@ -126,5 +173,18 @@ class TaskController extends Controller
         $tasks = Task::query()->where('title', 'LIKE', "%{$search}%")->orWhere('description', 'LIKE', "%{$search}%")->paginate(5);
 
         return view("task.search",['tasks'=> $tasks]);
+    }
+
+    public function filter(Request $request) {
+
+
+        $type_id = $request->type_sort;
+
+        // return $typeid;
+        //
+        // $tasks = Task::query()->where('type_id', $typeid)->paginate(5);
+        $tasks = Task::sortable()->where('type_id', $type_id)->paginate(5);
+        return view('task.filter', ['tasks'=>$tasks]);
+
     }
 }

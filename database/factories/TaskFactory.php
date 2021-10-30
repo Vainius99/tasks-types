@@ -22,7 +22,12 @@ class TaskFactory extends Factory
     public function definition()
     {
         return [
-            //
+            // 'title'=>$this->faker->company(),
+            // 'description'=>$this->faker->sentence(4),
+            // 'type_id'=>rand(1,4),
+            // 'start_date'=>$this->faker->dateTimeThisYear('-2 months'),
+            // 'end_date'=>$this->faker->dateTimeThisYear('+2 months'),
+            // 'logo'=>$this->faker->imageUrl(640, 480, 'cats'),
         ];
     }
 }

@@ -15,6 +15,10 @@ class CreateTasksTable extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('owner_id');
+
+            $table->foreign('owner_id')->references('id')->on('owners');
+
             $table->string('title', 225);
             $table->longText('description');
             $table->unsignedBigInteger('type_id');

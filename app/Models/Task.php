@@ -9,17 +9,21 @@ use Kyslik\ColumnSortable\Sortable;
 class Task extends Model
 {
 
-    // use Sortable;
+    use Sortable;
 
-    // protected $table = "tasks";
+    protected $table = "tasks";
 
-    // protected $fillable = ["title", "description", "type_id"];
+    protected $fillable = ["title", "description", "type_id"];
 
-    // public $sortable = ["id", "title", "description", "type_id"];
+    public $sortable = ["id", "title", "description", "type_id"];
 
 
     public function taskTypes() {
         return $this->belongsTo(Type::class, 'type_id', 'id');
     }
+    public function taskOwners() {
+        return $this->belongsTo(Owner::class, 'owner_id', 'id');
+    }
+
 
 }

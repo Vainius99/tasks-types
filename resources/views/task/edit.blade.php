@@ -13,6 +13,14 @@
                             <input class="gray form-control col-md-6" type="text" name="task_title" value="{{$task->title}}" />
                         </div>
                         <div class="form-group row">
+                            <label for="task_owner_id" class="col-md-4 col-form-label text-md-right"> Owner: </label>
+                            <select class="form-control col-md-6" name="task_owner_id">
+                                @foreach ($owners as $owner)
+                                <option value="{{$owner->id}}" @if($owner->id == $task->owner_id) selected @endif >{{$owner->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group row">
                             <label for="task_description" class="col-md-4 col-form-label text-md-right"> Description: </label>
                             <div class="col-md-6">
                                 <textarea class="summernote" name="task_description" cols="5" rows="5">{{$task->description}}</textarea>

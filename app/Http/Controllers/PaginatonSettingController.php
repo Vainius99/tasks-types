@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Type;
+use App\Models\PaginatonSetting;
 use Illuminate\Http\Request;
 
-class TypeController extends Controller
+class PaginatonSettingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,7 @@ class TypeController extends Controller
      */
     public function index()
     {
-        $types = Type::sortable()->paginate(10);
-        return view('type.index', ['types'=> $types]);
-
+        //
     }
 
     /**
@@ -26,7 +24,7 @@ class TypeController extends Controller
      */
     public function create()
     {
-        return view('type.create');
+        //
     }
 
     /**
@@ -37,65 +35,51 @@ class TypeController extends Controller
      */
     public function store(Request $request)
     {
-        $type = new Type;
-
-        $type ->title = $request->type_title;
-        $type ->description = $request->type_description;
-
-        $type ->save();
-
-        return redirect()->route('type.index');
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Type  $type
+     * @param  \App\Models\PaginatonSetting  $paginatonSetting
      * @return \Illuminate\Http\Response
      */
-    public function show(Type $type)
+    public function show(PaginatonSetting $paginatonSetting)
     {
-        return view("type.show", ["type" => $type]);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Type  $type
+     * @param  \App\Models\PaginatonSetting  $paginatonSetting
      * @return \Illuminate\Http\Response
      */
-    public function edit(Type $type)
+    public function edit(PaginatonSetting $paginatonSetting)
     {
-        return view("type.edit", ["type" => $type]);
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Type  $type
+     * @param  \App\Models\PaginatonSetting  $paginatonSetting
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Type $type)
+    public function update(Request $request, PaginatonSetting $paginatonSetting)
     {
-        $type ->title = $request->type_title;
-        $type ->description = $request->type_description;
-
-
-        $type ->save();
-
-        return redirect()->route('type.index');
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Type  $type
+     * @param  \App\Models\PaginatonSetting  $paginatonSetting
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Type $type)
+    public function destroy(PaginatonSetting $paginatonSetting)
     {
-        $type->delete();
-        return redirect()->route('type.index');
+        //
     }
 }
