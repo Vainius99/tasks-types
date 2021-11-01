@@ -18,20 +18,22 @@ class TaskController extends Controller
     public function index(Request $request)
     {
         $types=Type::all();
+        $pages=PaginatonSetting::all();
         $collumName = $request->collumname;
         $sortby = $request->sortby;
+        $pagination = $request->pagination;
 
 
-
-        if(!$collumName && !$sortby) {
+        if(!$collumName && !$sortby && !$pagination) {
             $collumName = 'id';
             $sortby = 'asc';
+            $pagination = 10 ;
         }
 
 
-        $tasks = Task::orderBy( $collumName, $sortby)->paginate(10);
+        $tasks = Task::orderBy( $collumName, $sortby)->paginate($pagination);
         // $tasks= Task::orderBy( $collumName, $sortby)->get();
-        return view("task.index", ["tasks" =>$tasks, 'types'=>$types, 'collumName'=> $collumName, 'sortby' => $sortby]);
+        return view("task.index", ["tasks" =>$tasks, 'types'=>$types, 'collumName'=> $collumName, 'sortby' => $sortby, 'pages' => $pages]);
     }
 
     /**

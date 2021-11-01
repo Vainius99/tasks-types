@@ -42,6 +42,17 @@ Route::prefix('types')->group(function () {
     Route::get('show/{type}', 'App\Http\Controllers\TypeController@show')->name('type.show')->middleware("auth");
 });
 
+Route::prefix('paginationsettings')->group(function () {
+
+    Route::get('','App\Http\Controllers\PaginatonSettingController@index')->name('paginationsetting.index')->middleware("auth");
+    Route::get('create', 'App\Http\Controllers\PaginatonSettingController@create')->name('paginationsetting.create')->middleware("auth");
+    Route::post('store', 'App\Http\Controllers\PaginatonSettingController@store')->name('paginationsetting.store')->middleware("auth");
+    Route::get('edit/{paginationsetting}', 'App\Http\Controllers\PaginatonSettingController@edit')->name('paginationsetting.edit')->middleware("auth");
+    Route::post('update/{paginationsetting}', 'App\Http\Controllers\PaginatonSettingController@update')->name('paginationsetting.update')->middleware("auth");
+    Route::post('delete/{paginationsetting}', 'App\Http\Controllers\PaginatonSettingController@destroy')->name('paginationsetting.destroy')->middleware("auth");
+    Route::get('show/{paginationsetting}', 'App\Http\Controllers\PaginatonSettingController@show')->name('paginationsetting.show')->middleware("auth");
+});
+
 Route::prefix('owners')->group(function () {
 
     Route::get('','App\Http\Controllers\OwnerController@index')->name('owner.index')->middleware("auth");

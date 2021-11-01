@@ -42,14 +42,14 @@ class OwnerController extends Controller
             'owner_name' => 'required|min:2|max:15|alpha',
             'owner_surname' => 'required|min:2|max:15|alpha',
             'owner_email' => 'required|email',
-            'owner_phone' => 'required|numeric|integer|digits:8',
+            'owner_phone' => 'required|numeric|integer|digits:7',
 
         ]);
 
         $owner  ->name = $request->owner_name;
         $owner  ->surname = $request->owner_surname;
         $owner  ->email = $request->owner_email;
-        $owner  ->phone = "+370".$request->owner_phone;
+        $owner  ->phone = "+3706".$request->owner_phone;
         // $request->owner_phone;
         $owner  ->save();
 

@@ -69,6 +69,17 @@
                 @endif
             </select>
 
+            <label for="">Page limit</label>
+                <select name="pagination" class="form-control-sm">
+                    @foreach ($pages as $page)
+                        @if($page->visible==1)
+                        <option value="{{$page->value}}"> {{$page->title}}</option>
+                        {{-- @if($page->value == $pagination) selected @endif --}}
+                        @endif
+                    @endforeach
+                </select>
+
+
             <button class="btn btn-warning" type="submit">SORT</button>
 
         </form>
@@ -83,7 +94,21 @@
 
         <button type="submit" class="btn btn-warning">Type sort</button>
     </div>
+    <div class="col-5 row">
         </form>
+        {{-- <form action="{{route('task.index')}}" method="GET">
+            @csrf
+                <label for="">Page limit</label>
+                <select name="pagination" class="form-control-sm">
+                    @foreach ($pages as $page)
+                        @if($page->visible==1)
+                        <option value="{{$page->value}}"> {{$page->title}}</option>
+                        @endif
+                    @endforeach
+                </select>
+                    <button type="submit" class="btn btn-warning">Page Submit</button>
+        </form> --}}
+    </div>
 
     <table class="table table-bordered table-hover gray">
         <thead class="thead-dark">

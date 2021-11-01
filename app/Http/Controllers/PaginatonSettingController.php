@@ -14,7 +14,8 @@ class PaginatonSettingController extends Controller
      */
     public function index()
     {
-        //
+        $paginatonSettings = PaginatonSetting::all();
+        return view ('paginationsetting.index', ['paginatonSettings'=>$paginatonSettings]);
     }
 
     /**
@@ -24,7 +25,7 @@ class PaginatonSettingController extends Controller
      */
     public function create()
     {
-        //
+        return view ('paginationsetting.create');
     }
 
     /**
@@ -35,7 +36,14 @@ class PaginatonSettingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $paginatonSetting = new PaginatonSetting;
+
+        $paginatonSetting->title=$request->pagination_title;
+        $paginatonSetting->value=$request->pagination_value;
+
+        $paginatonSetting->save();
+        return redirect()->route('paginationsetting.index');
+
     }
 
     /**
@@ -46,7 +54,7 @@ class PaginatonSettingController extends Controller
      */
     public function show(PaginatonSetting $paginatonSetting)
     {
-        //
+        return redirect()->route('paginationsetting.show', ['paginatonSetting'=> $paginatonSetting]);
     }
 
     /**
@@ -57,7 +65,7 @@ class PaginatonSettingController extends Controller
      */
     public function edit(PaginatonSetting $paginatonSetting)
     {
-        //
+        return redirect()->route('paginationsetting.edit', ['paginatonSetting'=> $paginatonSetting]);
     }
 
     /**
@@ -69,7 +77,11 @@ class PaginatonSettingController extends Controller
      */
     public function update(Request $request, PaginatonSetting $paginatonSetting)
     {
-        //
+        $paginatonSetting->title=$request->pagination_title;
+        $paginatonSetting->value=$request->pagination_value;
+
+        $paginatonSetting->save();
+        return redirect()->route('paginationsetting.index');
     }
 
     /**
@@ -80,6 +92,7 @@ class PaginatonSettingController extends Controller
      */
     public function destroy(PaginatonSetting $paginatonSetting)
     {
-        //
+        $paginatonSetting->delete();
+        return redirect()->route('paginatonsetting.index');
     }
 }
