@@ -43,6 +43,7 @@ class OwnerController extends Controller
             'owner_surname' => 'required|min:2|max:15|alpha',
             'owner_email' => 'required|email',
             'owner_phone' => 'required|numeric|integer|digits:7',
+            // (86|\+3706) \d{3} \d{4} -- lt numerio tikrinimas
 
         ]);
 

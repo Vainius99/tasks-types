@@ -31,6 +31,8 @@
                                 {{$task->taskTypes->description}}<br>
                         </div>
 
+                        <a href="{{route('task.pdftask', [$task])}}" class="btn btn-success">Export Task PDF</a>
+
                     </div>
                 </div>
             </div>

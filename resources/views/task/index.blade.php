@@ -163,6 +163,7 @@
         </tr>
         @endforeach
     </table>
+    <a class="btn btn-success" href="{{route('task.pdf')}}"> Export task table to PDF </a>
     {{-- {{ $tasks->links() }} --}}
 
     {!! $tasks->appends(Request::except('page'))->render() !!}

@@ -29,6 +29,8 @@ Route::prefix('tasks')->group(function () {
     Route::post('delete/{task}', 'App\Http\Controllers\TaskController@destroy')->name('task.destroy')->middleware("auth");
     Route::get('show/{task}', 'App\Http\Controllers\TaskController@show')->name('task.show')->middleware("auth");
     Route::get('filter','App\Http\Controllers\TaskController@filter')->name('task.filter')->middleware('auth');
+    Route::get('/pdf', 'App\Http\Controllers\TaskController@generatePDF')->name('task.pdf');
+    Route::get('pdftask/{task}', 'App\Http\Controllers\TaskController@generateTaskPDF')->name('task.pdftask');
 });
 
 Route::prefix('types')->group(function () {

@@ -7,6 +7,7 @@ use App\Models\PaginatonSetting;
 use App\Models\Type;
 use App\Models\Owner;
 use Illuminate\Http\Request;
+use PDF;
 
 class TaskController extends Controller
 {
@@ -187,6 +188,34 @@ class TaskController extends Controller
         // $tasks = Task::query()->where('type_id', $typeid)->paginate(5);
         $tasks = Task::sortable()->where('type_id', $type_id)->paginate(5);
         return view('task.filter', ['tasks'=>$tasks]);
+
+    }
+
+    public function generatePDF() {
+
+
+
+        $tasks = Task::all();
+
+        view()->share('tasks', $tasks);
+
+        $pdf = PDF::loadView("pdf_template", $tasks);
+
+        return $pdf->download("tasks.pdf");
+
+
+        // return 0;
+    }
+
+    public function generateTaskPDF(Task $task) {
+
+        view()->share('task', $task);
+
+
+        $pdf = PDF::loadView("pdf_task_template", $task);
+
+        return $pdf->download("task".$task->id.".pdf");
+
 
     }
 }
