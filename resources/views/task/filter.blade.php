@@ -45,6 +45,7 @@
             </tr>
         @endforeach
     </table>
+    <a class="btn btn-link"style="color: red" href="{{ url('/tasks')}}">Back</a>
 
     {!! $tasks->appends(Request::except('page'))->render() !!}
 </div>

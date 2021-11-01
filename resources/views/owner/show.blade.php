@@ -1,20 +1,26 @@
-{{-- @extends('layouts.app')
+@extends('layouts.app')
 
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Type Info') }}</div>
+                <div class="card-header">{{ __('Owner Info') }}</div>
                     <div class="card-body">
                         <div class="form-group center">
-                            <p> ID Number: {{$type->id}}</p>
+                            <p> ID Number: {{$owner->id}}</p>
                         </div>
                         <div class="form-group center">
-                            <p> Title: {{$type->title}}</p>
+                            <p> Name: {{$owner->name}}</p>
                         </div>
                         <div class="form-group center">
-                            <p>Description: {{$type->description}}</p>
+                            <p> Surname: {{$owner->surname}}</p>
+                        </div>
+                        <div class="form-group center">
+                            <p> Email: {{$owner->email}}</p>
+                        </div>
+                        <div class="form-group center">
+                            <p> Phone: {{$owner->phone}}</p>
                         </div>
 
 
@@ -24,5 +30,6 @@
         </div>
     </div>
 </div>
+ <a href="{{route('owner.pdfowner', [$owner])}}" class="btn btn-success">Export Owner PDF</a>
 
-@endsection --}}
+@endsection

@@ -33,8 +33,8 @@ class TaskController extends Controller
 
 
         $tasks = Task::orderBy( $collumName, $sortby)->paginate($pagination);
-        // $tasks= Task::orderBy( $collumName, $sortby)->get();
-        return view("task.index", ["tasks" =>$tasks, 'types'=>$types, 'collumName'=> $collumName, 'sortby' => $sortby, 'pages' => $pages]);
+
+        return view("task.index", ["tasks" =>$tasks, 'types'=>$types, 'collumName'=> $collumName, 'sortby' => $sortby, 'pages' => $pages, 'pagination' => $pagination]);
     }
 
     /**
@@ -199,7 +199,7 @@ class TaskController extends Controller
 
         view()->share('tasks', $tasks);
 
-        $pdf = PDF::loadView("pdf_template", $tasks);
+        $pdf = PDF::loadView("task\pdf_template", $tasks);
 
         return $pdf->download("tasks.pdf");
 
@@ -212,10 +212,24 @@ class TaskController extends Controller
         view()->share('task', $task);
 
 
-        $pdf = PDF::loadView("pdf_task_template", $task);
+        $pdf = PDF::loadView("task\pdf_task_template", $task);
 
         return $pdf->download("task".$task->id.".pdf");
 
+
+    }
+
+    public function generatePDFAll() {
+
+        $owners = Owner::all();
+        $tasks = Task::all();
+        $types = Type::all();
+
+        view()->share(['tasks'=> $tasks,'types'=>$types, "owners"=>$owners]);
+
+        $pdf = PDF::loadView("statistics");
+
+        return $pdf->download("statistics.pdf");
 
     }
 }

@@ -73,8 +73,8 @@
                 <select name="pagination" class="form-control-sm">
                     @foreach ($pages as $page)
                         @if($page->visible==1)
-                        <option value="{{$page->value}}"> {{$page->title}}</option>
-                        {{-- @if($page->value == $pagination) selected @endif --}}
+                        <option value="{{$page->value}}" @if($page->value == $pagination) selected @endif > {{$page->title}}</option>
+
                         @endif
                     @endforeach
                 </select>
@@ -96,18 +96,6 @@
     </div>
     <div class="col-5 row">
         </form>
-        {{-- <form action="{{route('task.index')}}" method="GET">
-            @csrf
-                <label for="">Page limit</label>
-                <select name="pagination" class="form-control-sm">
-                    @foreach ($pages as $page)
-                        @if($page->visible==1)
-                        <option value="{{$page->value}}"> {{$page->title}}</option>
-                        @endif
-                    @endforeach
-                </select>
-                    <button type="submit" class="btn btn-warning">Page Submit</button>
-        </form> --}}
     </div>
 
     <table class="table table-bordered table-hover gray">
@@ -164,6 +152,7 @@
         @endforeach
     </table>
     <a class="btn btn-success" href="{{route('task.pdf')}}"> Export task table to PDF </a>
+    {{-- <a class="btn btn-dark" href="{{route('task.statistics')}}"> Export statistics to pdf </a> --}}
     {{-- {{ $tasks->links() }} --}}
 
     {!! $tasks->appends(Request::except('page'))->render() !!}

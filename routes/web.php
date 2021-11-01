@@ -31,6 +31,7 @@ Route::prefix('tasks')->group(function () {
     Route::get('filter','App\Http\Controllers\TaskController@filter')->name('task.filter')->middleware('auth');
     Route::get('/pdf', 'App\Http\Controllers\TaskController@generatePDF')->name('task.pdf');
     Route::get('pdftask/{task}', 'App\Http\Controllers\TaskController@generateTaskPDF')->name('task.pdftask');
+    Route::get('statistics', 'App\Http\Controllers\TaskController@generatePDFAll')->name('task.statistics');
 });
 
 Route::prefix('types')->group(function () {
@@ -64,8 +65,11 @@ Route::prefix('owners')->group(function () {
     Route::post('update/{owner}', 'App\Http\Controllers\OwnerController@update')->name('owner.update')->middleware("auth");
     Route::post('delete/{owner}', 'App\Http\Controllers\OwnerController@destroy')->name('owner.destroy')->middleware("auth");
     Route::get('show/{owner}', 'App\Http\Controllers\OwnerController@show')->name('owner.show')->middleware("auth");
+    Route::get('/pdf', 'App\Http\Controllers\OwnerController@generatePDF')->name('owner.pdf');
+    Route::get('pdfowner/{owner}', 'App\Http\Controllers\OwnerController@generateOwnerPDF')->name('owner.pdfowner');
 });
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+

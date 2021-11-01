@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Owner;
+use App\Models\Task;
+use App\Models\Type;
+use PDF;
 
 class HomeController extends Controller
 {
@@ -25,4 +29,5 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
 }

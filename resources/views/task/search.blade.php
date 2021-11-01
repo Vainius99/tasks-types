@@ -39,6 +39,7 @@
                             @csrf
                             <button class="btn btn-danger" type="submit">Delete</button>
                         </form>
+                        <a class="btn btn-link"style="color: red" href="{{ url('/tasks')}}">Back</a>
                     </div>
                 </td>
 

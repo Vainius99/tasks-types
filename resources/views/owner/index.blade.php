@@ -47,6 +47,8 @@
         </tr>
         @endforeach
     </table>
+    <a class="btn btn-success" href="{{route('owner.pdf')}}"> Export Owner table to PDF </a>
+
     {!! $owners->appends(Request::except('page'))->render() !!}
 </div>
 @endsection
